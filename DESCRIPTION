@@ -1,0 +1,38 @@
+Package: covidm
+Type: Package
+Title: SARS-CoV-2 dynamic transmission model
+Version: 0.1.0
+Authors@R: c(
+    person("Nicholas G.", "Davies", email = "nicholas.davies@lshtm.ac.uk", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1740-1412")),
+    person("Kevin", "van Zandvoort", email = "kevin.van-zandvoort@lshtm.ac.uk", role = "aut"),
+    person("CMMID COVID-19 Working Group", role = "aut"))
+Description: covidm is an age-structured metapopulation model of SARS-CoV-2 transmission.
+    The library is optimised for speed and allows simulating pharmaceutical and non-pharmaceutical
+    interventions and model fitting, and comes bundled with demographic and contact data for
+    many countries around the world. The code was developed at the London School of Hygiene and
+    Tropical Medicine's Centre for Mathematical Modelling of Infectious Diseases.
+URL: https://github.com/cmmid/covidm/
+BugReports: https://github.com/cmmid/covidm/issues
+Depends: R (>= 3.1.0),
+    data.table
+Imports:
+    cowplot,
+    ggplot2,
+    HDInterval,
+    lubridate,
+    qs,
+    Rcpp,
+    RcppGSL,
+    stringr
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
+LinkingTo: 
+    Rcpp,
+    RcppGSL

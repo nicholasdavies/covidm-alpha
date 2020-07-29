@@ -1,0 +1,85 @@
+---
+title: "Running a SARS-CoV-2 model with covidm"
+author: "Nick Davies"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Running a SARS-CoV-2 model with covidm}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+First, load the `covidm` package.
+
+```{r setup}
+library(covidm)
+```
+
+# Heading 1
+
+This will guide you to getting started with covidm.
+
+## Heading 2
+
+Really it will.
+
+### Heading 3
+
+OK, so it's not finished yet.
+
+* Bulleted list
+* Item 2
+    * Nested bullets need a 4-space indent.
+    * Item 2b
+
+
+1.  Item 1.
+    *  Item a
+    *  Item b
+1.  Item 2.
+
+Definition
+  : a statement of the exact meaning of a word, especially in a dictionary.
+
+List 
+  : a number of connected items or names written or printed consecutively, 
+    typically one below the other. 
+  : barriers enclosing an area for a jousting tournament.
+
+
+
+_italic_ or *italic*
+
+__bold__ or **bold**    
+
+[link text](destination)
+
+Note - to link to vignette abc.Rmd, link to abc.html
+
+<http://this-is-a-raw-url.com>
+
+
+
+| Right | Left | Default | Center |
+|------:|:-----|---------|:------:|
+|   12  |  12  |    12   |    12  |
+|  123  |  123 |   123   |   123  |
+|    1  |    1 |     1   |     1  |
+
+```r
+print("R code that is not run.")
+```
+
+
+```{r}
+# Add two numbers together
+add <- function(a, b) a + b
+add(10, 20)
+```
