@@ -1,16 +1,18 @@
 .DS_Store
 
-.Rhistory
-
 *.o
 
 build/
 
 model_v2/user_defined.cpp
 
+.Rhistory
 .Rapp.history
 .Rproj.user
 
+inst/
 inst/doc
 
-inst/
+src/Makevars
+config.log
+config.status
