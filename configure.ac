@@ -1,5 +1,5 @@
 
-AC_INIT([RcppGSLExample], 0.1.0)
+AC_INIT([covidm], 0.1.0)
 
 ## Use gsl-config to find arguments for compiler and linker flags
 ##

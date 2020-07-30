@@ -4,7 +4,7 @@
 \alias{set_populations}
 \title{set populations for a model}
 \usage{
-set_populations(model, locations, atlas = "wpp", admin = NULL, refyear = NULL)
+set_populations(model, locations, atlas, admin = NULL, refyear = NULL)
 }
 \description{
 set populations for a model
