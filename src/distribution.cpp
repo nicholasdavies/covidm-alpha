@@ -1,5 +1,9 @@
 // distribution.cpp
 
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::plugins(openmp)]]
+// [[Rcpp::depends(RcppGSL)]]
+
 #include "distribution.h"
 
 

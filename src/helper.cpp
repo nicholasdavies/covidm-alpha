@@ -1,5 +1,9 @@
 // helper.cpp
 
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::plugins(openmp)]]
+// [[Rcpp::depends(RcppGSL)]]
+
 #include "helper.h"
 
 #include <gsl/gsl_sf_gamma.h>

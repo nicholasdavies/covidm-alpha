@@ -1,5 +1,9 @@
 // sim_household.cpp
 
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::plugins(openmp)]]
+// [[Rcpp::depends(RcppGSL)]]
+
 #include "sim_household.h"
 #include "parameters.h"
 #include "reporter.h"

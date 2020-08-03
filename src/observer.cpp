@@ -1,5 +1,9 @@
 // observer.cpp
 
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::plugins(openmp)]]
+// [[Rcpp::depends(RcppGSL)]]
+
 #include "observer.h"
 #include "reporter.h"
 #include "parameters.h"

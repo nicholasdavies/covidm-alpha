@@ -1,5 +1,9 @@
 // compartment.cpp
 
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::plugins(openmp)]]
+// [[Rcpp::depends(RcppGSL)]]
+
 #include "compartment.h"
 
 // Construct the compartment

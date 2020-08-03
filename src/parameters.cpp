@@ -1,5 +1,9 @@
 // parameters.cpp
 
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::plugins(openmp)]]
+// [[Rcpp::depends(RcppGSL)]]
+
 #include "parameters.h"
 
 // Helpers to set parameters

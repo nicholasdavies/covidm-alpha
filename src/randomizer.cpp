@@ -1,5 +1,9 @@
 // randomizer.cpp
 
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::plugins(openmp)]]
+// [[Rcpp::depends(RcppGSL)]]
+
 #include "randomizer.h"
 
 Randomizer::Randomizer(unsigned long int s)

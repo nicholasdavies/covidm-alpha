@@ -1,5 +1,9 @@
 // reporter.cpp
 
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::plugins(openmp)]]
+// [[Rcpp::depends(RcppGSL)]]
+
 #include "reporter.h"
 #include "parameters.h"
 #include <numeric>

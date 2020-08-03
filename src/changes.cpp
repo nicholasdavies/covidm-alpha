@@ -1,5 +1,9 @@
 // changes.cpp
 
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::plugins(openmp)]]
+// [[Rcpp::depends(RcppGSL)]]
+
 #include "changes.h"
 #include "parameters.h"
 #include "helper.h"
