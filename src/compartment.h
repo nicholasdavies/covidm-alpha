@@ -16,7 +16,6 @@
 #include <numeric>
 #include <ctime>
 #include <limits>
-#include <omp.h>
 using namespace std;
 
 #include "randomizer.h"

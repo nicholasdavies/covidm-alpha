@@ -14,7 +14,6 @@
 #include <numeric>
 #include <ctime>
 #include <limits>
-#include <omp.h>
 #include <Rcpp.h>
 using namespace std;
 

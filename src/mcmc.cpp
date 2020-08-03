@@ -7,7 +7,9 @@
 #include <limits>
 #include <string>
 #include <stdexcept>
-#include <omp.h>
+#ifdef _OPENMP
+    #include <omp.h>
+#endif
 #include "mcmc.h"
 #include "user_defined.h"
 #include "Rcpp_interface.h"

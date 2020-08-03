@@ -12,7 +12,9 @@
 #include <numeric>
 #include <ctime>
 #include <limits>
-#include <omp.h>
+#ifdef _OPENMP
+    #include <omp.h>
+#endif
 #include <Rcpp.h>
 using namespace std;
 
