@@ -420,7 +420,6 @@ bool Metapopulation::Tick(Parameters& P, Randomizer& Rand, double t, unsigned in
                 infec[i][a] += P.travel(j, i) * contag[j][a] * (j != i ? P.pop[j].tau[a] : 1.0);
 
     // Update populations
-    //#pragma omp parallel for schedule(dynamic) reduction(&&:keep_going)
     for (unsigned int i = 0; i < pops.size(); ++i)
         pops[i].Tick(P, Rand, t, infec[i], rep);
 
@@ -433,10 +432,6 @@ bool Metapopulation::Tick(Parameters& P, Randomizer& Rand, double t, unsigned in
 
 void Metapopulation::Run(Parameters& P, Randomizer& Rand, Reporter& rep)
 {
-    #ifdef _OPENMP
-    omp_set_num_threads(6);
-    #endif
-
     // Run simulation
     unsigned int time_steps = (1 + P.time1 - P.time0) / P.time_step;
     for (unsigned int ts = 0; ts < time_steps; ++ts)
