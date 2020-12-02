@@ -10,9 +10,6 @@ model_v2/user_defined.cpp
 .Rapp.history
 .Rproj.user
 
-inst/
-inst/doc
-
 src/Makevars
 config.log
 config.status
