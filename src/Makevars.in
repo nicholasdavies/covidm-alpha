@@ -7,3 +7,8 @@ GSL_LIBS   = @GSL_LIBS@
 PKG_CPPFLAGS = $(GSL_CFLAGS)
 PKG_CXXFLAGS = -std=c++11
 PKG_LIBS = $(GSL_LIBS)
+
+# test
+PKG_CXX=moo
+CXX=quack
+CC=woof

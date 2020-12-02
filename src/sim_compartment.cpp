@@ -413,7 +413,7 @@ bool Metapopulation::Tick(Parameters& P, Randomizer& Rand, double t, unsigned in
 
     // note -- 'infec' subscripted first by i, then by a
     // It's the effective number of infectious individuals who are CURRENTLY IN subpop i of age a.
-    infec.assign(pops.size(), vector<double>(n_ages, 0.0)); 
+    infec.assign(pops.size(), vector<double>(n_ages, 0.0));
     for (unsigned int i = 0; i < pops.size(); ++i)
         for (unsigned int j = 0; j < pops.size(); ++j)
             for (unsigned int a = 0; a < n_ages; ++a)

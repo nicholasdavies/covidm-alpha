@@ -40,9 +40,42 @@ set_populations = function(model, locations, atlas, admin = NULL, refyear = NULL
     # Check parameters
     cm_require_class(model, "model", "cm.model");
 
-    model$parameters$pop = list(
-        Default = list(a = 1, b = 2, c = 3)
-    );
+    # Select atlas
+    if (atlas == "worldpop") {
+        dat = dat_worldpop;
+    } else if (atlas == "wpp") {
+        dat = dat_wpp2019;
+    } else if (atlas == "uk") {
+        dat = dat_uk;
+    } else {
+        stop("Unknown atlas ", atlas, ".");
+    }
+
+    # TODO think about this . . .
+    if (!is.null(refyear)) {
+        stop("Ref year not supported.");
+    }
+
+    # TODO Redo with admin
+    data = dat[name == locations];
+
+    names = data[, unique(name)];
+
+    print(paste0("Loading ", names));
+
+    i = 1;
+    model$parameters$pop = list();
+    for (n in names) {
+        p = cm_base_pop_SEI3R(nrow(data[name == n]));
+        p$name = n;
+        p$code = data[name == n, unique(code)][1];
+        p$group_names = as.character(data[name == n, group]);
+        p$size = data[name == n, f + m];
+
+        model$parameters$pop[[i]] = p;
+        i = i + 1;
+    }
+
     model$parameters$travel = diag(length(model$parameters$pop));
 
     return (model)
