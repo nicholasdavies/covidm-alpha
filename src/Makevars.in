@@ -4,6 +4,6 @@ GSL_CFLAGS = @GSL_CFLAGS@
 GSL_LIBS   = @GSL_LIBS@
 
 # combine with standard arguments for R
-PKG_CPPFLAGS = $(GSL_CFLAGS) @openmp_cflags@
+PKG_CPPFLAGS = $(GSL_CFLAGS) $(SHLIB_OPENMP_CFLAGS)
 PKG_CXXFLAGS = -std=c++11
-PKG_LIBS = $(GSL_LIBS) @openmp_cflags@
+PKG_LIBS = $(GSL_LIBS) $(SHLIB_OPENMP_CFLAGS)
