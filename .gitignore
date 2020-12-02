@@ -13,3 +13,4 @@ model_v2/user_defined.cpp
 src/Makevars
 config.log
 config.status
+configure
