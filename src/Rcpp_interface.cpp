@@ -371,9 +371,9 @@ void cm_test_num_threads(unsigned int n_threads)
 {
 #ifdef _OPENMP
     omp_set_num_threads(n_threads);
-    Rcout << "OpenMP support with " << omp_get_num_threads() << " threads.\n";
+    Rcpp::Rcout << "OpenMP support with " << omp_get_num_threads() << " threads.\n";
 #else
-    Rcout << "No OpenMP support.\n";
+    Rcpp::Rcout << "No OpenMP support.\n";
 #endif
 }
 
