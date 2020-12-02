@@ -47,3 +47,8 @@ call_cpp_func <- function(xptr_func, x) {
     .Call('_covidm_call_cpp_func', PACKAGE = 'covidm', xptr_func, x)
 }
 
+#' @export
+cm_test_num_threads <- function(n_threads) {
+    invisible(.Call('_covidm_cm_test_num_threads', PACKAGE = 'covidm', n_threads))
+}
+

@@ -366,6 +366,7 @@ double call_cpp_func(SEXP xptr_func, double x) {
     return f(x);
 }
 
+//' @export
 // [[Rcpp::export]]
 void cm_test_num_threads(unsigned int n_threads)
 {
