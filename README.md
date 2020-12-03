@@ -89,13 +89,15 @@ And you're done.
 
 ### For R version 4.0.0 or later
 
-1. Install the GNU Scientific Library (GSL) using Homebrew (https://brew.sh/) by typing
+1. First, you need to have the Command Line Tools installed. To check if you do, type `clang -v` in the Terminal; if it gives you information on the version number then you have Command Line Tools installed. If you get an error like `zsh: command not found: clang`, then install Command Line Tools by typing `xcode-select --install` and following the prompts.
+
+2. Install the GNU Scientific Library (GSL) using Homebrew (https://brew.sh/) by typing
 ```
 brew install gsl
 ```
 in the Terminal.
 
-2. (*Optional*) If you want covidm to be able to use multithreading (i.e. speed up simulations by distributing them across multiple processor cores), you will need to install OpenMP support. The latest instructions for how to do this on Mac OS X are available at https://mac.r-project.org/openmp, but here's the gist of it:
+3. (*Optional*) If you want covidm to be able to use multithreading (i.e. speed up simulations by distributing them across multiple processor cores), you will need to install OpenMP support. The latest instructions for how to do this on Mac OS X are available at https://mac.r-project.org/openmp, but here's the gist of it:
 
 > a. Type `clang -v` in the Terminal to see which version of **clang** you have installed. You are looking for something like `Apple clang version 11.0.3 (clang-YYYY.12.34.56)` — it's the 4-digit YYYY number you need.
 
@@ -111,7 +113,7 @@ in the Terminal.
 
 >> `LDFLAGS += -lomp`
 
-5. You can now install covidm from Github. First make sure you have the `remotes` package installed
+4. You can now install covidm from Github. First make sure you have the `remotes` package installed
 ```R
 install.packages("remotes")
 ```
@@ -123,21 +125,23 @@ And you're done.
 
 ### For R before version 4.0.0
 
-1. First, you need to install gfortran binaries from here: https://github.com/fxcoudert/gfortran-for-macOS/releases.
+1. First, you need to have the Command Line Tools installed. To check if you do, type `clang -v` in the Terminal; if it gives you information on the version number then you have Command Line Tools installed. If you get an error like `zsh: command not found: clang`, then install Command Line Tools by typing `xcode-select --install` and following the prompts.
 
-2. Then, install the GNU Scientific Library (GSL) using Homebrew (https://brew.sh/) by typing
+2. Then, install gfortran binaries from here: https://github.com/fxcoudert/gfortran-for-macOS/releases.
+
+3. Then, install the GNU Scientific Library (GSL) using Homebrew (https://brew.sh/) by typing
 ```
 brew install gsl
 ```
 in the Terminal.
 
-3. Now, run 
+4. Now, run 
 ```
 gcc --version
 ```
 in the Terminal to get your current version, e.g. `Target: x86_64-apple-darwin18.8.2.0`. 
 
-4. Finally, run this in Terminal, substituting the version from step 3 into the last line:
+5. Finally, run this in Terminal, substituting the version from step 3 into the last line:
 ```
 cd ~
 mkdir .R
@@ -145,7 +149,7 @@ cd .R
 echo FLIBS=-L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin18/8.2.0 -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm >> Makevars
 ```
 
-5. You can now install covidm from Github. First make sure you have the `remotes` package installed
+6. You can now install covidm from Github. First make sure you have the `remotes` package installed
 ```R
 install.packages("remotes")
 ```
