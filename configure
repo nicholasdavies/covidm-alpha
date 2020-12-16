@@ -50,6 +50,9 @@ fi
 # Clean up.
 rm -f test-omp.* a.out
 
+# Test if the compiler is Apple clang, in which case we need some different flags for OpenMP.
+clang -v 2>&1 >/dev/null | grep 'Apple clang' >/dev/null || NOT_APPLE_CLANG=1
+
 # Write to Makevars
 if [ "$R_NO_OPENMP" = "1" ]; then
   echo "*** OpenMP not supported! covidm uses OpenMP to speed up simulations"
@@ -58,8 +61,11 @@ if [ "$R_NO_OPENMP" = "1" ]; then
   echo "***   https://github.com/nicholasdavies/covidm-alpha/"
   echo "*** Continuing installation without OpenMP support..."
   sed -e "s|@openmp_cflags@||" src/Makevars.in > src/Makevars
-else
+elif [ "$NOT_APPLE_CLANG" = "1" ]; then
   sed -e "s|@openmp_cflags@|\$(SHLIB_OPENMP_CFLAGS)|" src/Makevars.in > src/Makevars
+else
+  echo "Apple clang detected."
+  sed -e "s|@openmp_cflags@|-Xclang -fopenmp|" src/Makevars.in > src/Makevars
 fi
 
 sed -e "s|@gsl_cflags@|$GSL_CFLAGS|" src/Makevars > src/Makevars.tmp && mv src/Makevars.tmp src/Makevars

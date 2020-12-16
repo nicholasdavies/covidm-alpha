@@ -11,5 +11,3 @@ model_v2/user_defined.cpp
 .Rproj.user
 
 src/Makevars
-config.log
-config.status

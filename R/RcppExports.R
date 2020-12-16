@@ -35,20 +35,14 @@ cm_backend_sample_fit_test <- function(R_base_parameters, posterior, n, seed) {
     .Call('_covidm_cm_backend_sample_fit_test', PACKAGE = 'covidm', R_base_parameters, posterior, n, seed)
 }
 
-#' Get fuction ptr
 #' @export
-get_cpp_func <- function() {
-    .Call('_covidm_get_cpp_func', PACKAGE = 'covidm')
+cm_test_num_threads <- function(n_threads) {
+    invisible(.Call('_covidm_cm_test_num_threads', PACKAGE = 'covidm', n_threads))
 }
 
 #' Use function ptr
 #' @export
 call_cpp_func <- function(xptr_func, x) {
     .Call('_covidm_call_cpp_func', PACKAGE = 'covidm', xptr_func, x)
-}
-
-#' @export
-cm_test_num_threads <- function(n_threads) {
-    invisible(.Call('_covidm_cm_test_num_threads', PACKAGE = 'covidm', n_threads))
 }
 

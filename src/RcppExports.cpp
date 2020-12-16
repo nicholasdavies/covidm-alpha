@@ -83,14 +83,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// get_cpp_func
-Rcpp::XPtr<cpp_func> get_cpp_func();
-RcppExport SEXP _covidm_get_cpp_func() {
+// cm_test_num_threads
+void cm_test_num_threads(unsigned int n_threads);
+RcppExport SEXP _covidm_cm_test_num_threads(SEXP n_threadsSEXP) {
 BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(get_cpp_func());
-    return rcpp_result_gen;
+    Rcpp::traits::input_parameter< unsigned int >::type n_threads(n_threadsSEXP);
+    cm_test_num_threads(n_threads);
+    return R_NilValue;
 END_RCPP
 }
 // call_cpp_func
@@ -105,16 +105,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// cm_test_num_threads
-void cm_test_num_threads(unsigned int n_threads);
-RcppExport SEXP _covidm_cm_test_num_threads(SEXP n_threadsSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type n_threads(n_threadsSEXP);
-    cm_test_num_threads(n_threads);
-    return R_NilValue;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_covidm_cm_backend_simulate_v2", (DL_FUNC) &_covidm_cm_backend_simulate_v2, 5},
@@ -122,9 +112,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_covidm_cm_backend_mcmc_test", (DL_FUNC) &_covidm_cm_backend_mcmc_test, 7},
     {"_covidm_cm_backend_optimize_test", (DL_FUNC) &_covidm_cm_backend_optimize_test, 6},
     {"_covidm_cm_backend_sample_fit_test", (DL_FUNC) &_covidm_cm_backend_sample_fit_test, 4},
-    {"_covidm_get_cpp_func", (DL_FUNC) &_covidm_get_cpp_func, 0},
-    {"_covidm_call_cpp_func", (DL_FUNC) &_covidm_call_cpp_func, 2},
     {"_covidm_cm_test_num_threads", (DL_FUNC) &_covidm_cm_test_num_threads, 1},
+    {"_covidm_call_cpp_func", (DL_FUNC) &_covidm_call_cpp_func, 2},
     {NULL, NULL, 0}
 };
 

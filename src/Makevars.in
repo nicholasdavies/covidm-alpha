@@ -3,3 +3,7 @@
 PKG_CPPFLAGS = @PKG_CPPFLAGS@ @openmp_cflags@ @gsl_cflags@
 PKG_CXXFLAGS = @PKG_CXXFLAGS@ -std=c++11
 PKG_LIBS = @PKG_LIBS@ @openmp_cflags@ @gsl_libs@
+
+# this prevents installation
+#default:
+#	@echo ${SHLIB_OPENMP_CFLAGS}

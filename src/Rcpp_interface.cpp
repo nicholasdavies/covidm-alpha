@@ -338,34 +338,6 @@ Rcpp::List cm_backend_sample_fit_test(Rcpp::List R_base_parameters, Rcpp::DataFr
     return dynamics;
 }
 
-
-// TEST OF FUNCTION POINTERS . . .
-#include "covidm_types.h"
-
-double fun1_cpp(double x) {
-    return M_PI * x * x;
-}
-
-// typedef double (*cpp_func)(double x);
-
-//' Get fuction ptr
-//' @export
-// [[Rcpp::export]]
-Rcpp::XPtr<cpp_func> get_cpp_func()
-{
-    return Rcpp::XPtr<cpp_func>(new cpp_func(&fun1_cpp));
-    //return XPtr<funcPtr>(R_NilValue); // runtime error as NULL no XPtr
-}
-
-//' Use function ptr
-//' @export
-// [[Rcpp::export]]
-double call_cpp_func(SEXP xptr_func, double x) {
-    Rcpp::XPtr<cpp_func> fp(xptr_func);
-    cpp_func f = *fp;
-    return f(x);
-}
-
 //' @export
 // [[Rcpp::export]]
 void cm_test_num_threads(unsigned int n_threads)
@@ -377,4 +349,19 @@ void cm_test_num_threads(unsigned int n_threads)
     Rcpp::Rcout << "No OpenMP support.\n";
 #endif
 }
+
+
+
+// TEST OF FUNCTION POINTERS . . .
+#include "covidm_types.h"
+
+//' Use function ptr
+//' @export
+// [[Rcpp::export]]
+double call_cpp_func(SEXP xptr_func, double x) {
+    Rcpp::XPtr<cpp_func> fp(xptr_func);
+    cpp_func f = *fp;
+    return f(x);
+}
+
 
