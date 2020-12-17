@@ -10,17 +10,14 @@
 #include <limits>
 #include <string>
 #include <stdexcept>
-#ifdef _OPENMP
-    #include <omp.h>
-#endif
 #include "mcmc.h"
 #include "user_defined.h"
 #include "Rcpp_interface.h"
 using namespace std;
 
 MCMCReporter::MCMCReporter(unsigned int iterations, unsigned int chains, vector<string>& param_names)
- : n_chains(chains), n_samp(iterations * n_chains), 
-   trial(n_samp, 0), chain(n_samp, 0), lp(n_samp, 0.0), ll(n_samp, 0.0), 
+ : n_chains(chains), n_samp(iterations * n_chains),
+   trial(n_samp, 0), chain(n_samp, 0), lp(n_samp, 0.0), ll(n_samp, 0.0),
    theta(param_names.size(), vector<double>(n_samp, 1.0)), pnames(param_names)
 {
 }
@@ -63,15 +60,10 @@ double Likelihood::operator()(const vector<double>& theta)
 void DEMCMC_Priors(Randomizer& R, Likelihood& likelihood, MCMCReporter& report,
     int burn_in, int iterations, int n_chains, vector<Distribution>& priors,
     bool verbose, vector<string> param_names,
-    bool reeval_likelihood, bool in_parallel, int n_threads, 
-    bool classic_gamma, 
+    bool reeval_likelihood, bool in_parallel, int n_threads,
+    bool classic_gamma,
     vector<vector<double>> init, int init_iter)
 {
-    #ifdef _OPENMP
-        if (in_parallel && n_threads > 0)
-            omp_set_num_threads(n_threads);
-    #endif
-
     if (n_chains < 3)
         throw runtime_error("Cannot use DE-MCMC with fewer than 3 chains.");
 
@@ -135,7 +127,7 @@ void DEMCMC_Priors(Randomizer& R, Likelihood& likelihood, MCMCReporter& report,
     if (verbose)
         cout << "Initializing chains...\n";
 
-    #pragma omp parallel for if(in_parallel) schedule(dynamic)
+    #pragma omp parallel for if(in_parallel) schedule(dynamic) num_threads(n_threads)
     for (int c = 0; c < n_chains; ++c)
         p[c] = target(chains[c], l[c]);
 
@@ -147,7 +139,7 @@ void DEMCMC_Priors(Randomizer& R, Likelihood& likelihood, MCMCReporter& report,
         // If requested, re-evaluate likelihood for next iteration
         if (reeval_likelihood)
         {
-            #pragma omp parallel for if(in_parallel) schedule(dynamic)
+            #pragma omp parallel for if(in_parallel) schedule(dynamic) num_threads(n_threads)
             for (int c = 0; c < n_chains; ++c)
                 p[c] = target(chains[c], l[c]);
         }
@@ -179,7 +171,7 @@ void DEMCMC_Priors(Randomizer& R, Likelihood& likelihood, MCMCReporter& report,
         auto saved_chains = chains;
         vector<int> accept(n_chains, 0);
 
-        #pragma omp parallel for if(in_parallel) schedule(dynamic)
+        #pragma omp parallel for if(in_parallel) schedule(dynamic) num_threads(n_threads)
         for (int c = 0; c < n_chains; ++c)
         {
             vector<double> theta_p = chains[c];
@@ -282,11 +274,6 @@ struct Particle
 void Optimize_Priors(Randomizer& R, Likelihood& likelihood, MCMCReporter& report, std::vector<Distribution>& priors,
     unsigned int maxeval, double ftol_abs, bool verbose, bool in_parallel, unsigned int n_threads)
 {
-    #ifdef _OPENMP
-        if (in_parallel && n_threads > 0)
-            omp_set_num_threads(n_threads);
-    #endif
-
     unsigned int d = priors.size();
 
     unsigned int np = 20 * (d + 1);         // number of particles
@@ -339,7 +326,7 @@ void Optimize_Priors(Randomizer& R, Likelihood& likelihood, MCMCReporter& report
     for (;; ++t)
     {
         // Evaluate objective function
-        #pragma omp parallel for if(in_parallel) schedule(dynamic)
+        #pragma omp parallel for if(in_parallel) schedule(dynamic) num_threads(n_threads)
         for (unsigned int i = 0; i < y.size(); ++i)
         {
             double l;
@@ -386,7 +373,7 @@ void Optimize_Priors(Randomizer& R, Likelihood& likelihood, MCMCReporter& report
                 for (unsigned int j = 0; j < d; ++j)
                 {
                     yn[k].s[j] *= exp(taup * norm + tau * R.Normal());
-                    do {            
+                    do {
                         yn[k].x[j] = yn[i].x[j] + yn[k].s[j] * R.Normal();
                     } while (yn[k].x[j] < lb[j] || yn[k].x[j] > ub[j]);
                     yn[k].s[j] = y[i].s[j] + alpha * (yn[k].s[j] - y[i].s[j]);

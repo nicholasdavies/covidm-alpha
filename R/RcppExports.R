@@ -36,8 +36,8 @@ cm_backend_sample_fit_test <- function(R_base_parameters, posterior, n, seed) {
 }
 
 #' @export
-cm_test_num_threads <- function(n_threads) {
-    invisible(.Call('_covidm_cm_test_num_threads', PACKAGE = 'covidm', n_threads))
+cm_has_openmp <- function() {
+    invisible(.Call('_covidm_cm_has_openmp', PACKAGE = 'covidm'))
 }
 
 #' Use function ptr

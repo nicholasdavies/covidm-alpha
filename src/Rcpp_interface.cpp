@@ -62,12 +62,6 @@ Rcpp::List cm_backend_simulate_v2(Rcpp::List parameters, unsigned int n_run = 1,
 {
     string file_out(r_file_out.get_cstring());
 
-    // Enable multithreading
-    #ifdef _OPENMP
-    if (n_threads > 1)
-        omp_set_num_threads(n_threads);
-    #endif
-
     // Initialise parameters for this simulation
     Randomizer rand_master(seed);
     Parameters covidm_parameters;
@@ -81,7 +75,7 @@ Rcpp::List cm_backend_simulate_v2(Rcpp::List parameters, unsigned int n_run = 1,
             rand_r.emplace_back(rand_master());
 
         // Run the simulation
-        #pragma omp parallel for if(n_threads > 1) schedule(dynamic)
+        #pragma omp parallel for if(n_threads > 1) schedule(dynamic) num_threads(n_threads)
         for (unsigned int r = 0; r < n_run; ++r)
         {
             Parameters P = covidm_parameters;
@@ -103,7 +97,7 @@ Rcpp::List cm_backend_simulate_v2(Rcpp::List parameters, unsigned int n_run = 1,
             rand_r.emplace_back(rand_master());
 
         // Run the simulation
-        #pragma omp parallel for if(n_threads > 1) schedule(dynamic)
+        #pragma omp parallel for if(n_threads > 1) schedule(dynamic) num_threads(n_threads)
         for (unsigned int r = 0; r < n_run; ++r)
         {
             Parameters P = covidm_parameters;
@@ -340,10 +334,9 @@ Rcpp::List cm_backend_sample_fit_test(Rcpp::List R_base_parameters, Rcpp::DataFr
 
 //' @export
 // [[Rcpp::export]]
-void cm_test_num_threads(unsigned int n_threads)
+void cm_has_openmp()
 {
 #ifdef _OPENMP
-    omp_set_num_threads(n_threads);
     Rcpp::Rcout << "OpenMP support with " << omp_get_max_threads() << " threads.\n";
 #else
     Rcpp::Rcout << "No OpenMP support.\n";

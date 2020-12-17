@@ -82,13 +82,12 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// cm_test_num_threads
-void cm_test_num_threads(unsigned int n_threads);
-RcppExport SEXP _covidm_cm_test_num_threads(SEXP n_threadsSEXP) {
+// cm_has_openmp
+void cm_has_openmp();
+RcppExport SEXP _covidm_cm_has_openmp() {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type n_threads(n_threadsSEXP);
-    cm_test_num_threads(n_threads);
+    cm_has_openmp();
     return R_NilValue;
 END_RCPP
 }
@@ -111,7 +110,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_covidm_cm_backend_mcmc_test", (DL_FUNC) &_covidm_cm_backend_mcmc_test, 7},
     {"_covidm_cm_backend_optimize_test", (DL_FUNC) &_covidm_cm_backend_optimize_test, 6},
     {"_covidm_cm_backend_sample_fit_test", (DL_FUNC) &_covidm_cm_backend_sample_fit_test, 4},
-    {"_covidm_cm_test_num_threads", (DL_FUNC) &_covidm_cm_test_num_threads, 1},
+    {"_covidm_cm_has_openmp", (DL_FUNC) &_covidm_cm_has_openmp, 0},
     {"_covidm_call_cpp_func", (DL_FUNC) &_covidm_call_cpp_func, 2},
     {NULL, NULL, 0}
 };
