@@ -35,7 +35,7 @@ To build packages from source on Mac OS X, you need to have the Command Line Too
 
 3. Run `curl -O https://mac.r-project.org/openmp/openmp-9.0.1-darwin17-Release.tar.gz` in the Terminal, substituting the file name you need, to download OpenMP.
 
-4. Then run `sudo tar fvx openmp-9.0.1-darwin17-Release.tar.gz -C /` in the Terminal to install OpenMP. You will be asked for your password.
+4. Then run `sudo tar fvx openmp-9.0.1-darwin17-Release.tar.gz -C /` in the Terminal, again substituting the name of the file from step 2, to install OpenMP. You will be asked for your password.
 
 ## Setup on Windows
 
