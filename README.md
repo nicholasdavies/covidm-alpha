@@ -12,7 +12,7 @@ This code is under active development. Currently, the developers cannot provide 
 
 ## Installing covidm
 
-In order to use `covidm`, you will need to be able to build packages from source. Instructions for how to do this for [Mac OS X](#setup-on-mac-os-x) and [Windows](#setup-on-windows) are below. Be sure to read the instructions if you want `covidm` to be able to use multithreading on Mac OS X.
+In order to use `covidm`, you will need to be able to build packages from source. Instructions for how to set this up for [Mac OS X](#setup-on-mac-os-x) and [Windows](#setup-on-windows) are below. Be sure to read the instructions if you want `covidm` to be able to use multithreading on Mac OS X.
 
 To install `covidm` from github, you will need the `remotes` package:
 ```R
@@ -38,6 +38,8 @@ To build packages from source on Mac OS X, you need to have the Command Line Too
 4. Then run `sudo tar fvx openmp-9.0.1-darwin17-Release.tar.gz -C /` in the Terminal, again substituting the name of the file from step 2, to install OpenMP. You will be asked for your password.
 
 ## Setup on Windows
+
+To build packages from source on Windows, read on.
 
 ### For R version 4.0.0 or later
 
