@@ -29,13 +29,13 @@ To build packages from source on Mac OS X, you need to have the Command Line Too
 
 (*Optional*) If you want `covidm` to be able to use multithreading (i.e. speed up simulations by distributing them across multiple processor cores), you will need to install OpenMP support. The latest instructions for how to do this on Mac OS X are available at https://mac.r-project.org/openmp, but here's the gist of it:
 
-> a. Type `clang -v` in the Terminal to see which version of **clang** you have installed. You are looking for something like `Apple clang version 11.0.3 (clang-YYYY.12.34.56)` — it's the 4-digit YYYY number you need.
+1. Type `clang -v` in the Terminal to see which version of **clang** you have installed. You are looking for something like `Apple clang version 11.0.3 (clang-YYYY.12.34.56)` — it's the 4-digit YYYY number you need.
 
-> b. Go to https://mac.r-project.org/openmp and look in the table under **OpenMP run-time downloads** for the right file. Under the **Build** header, you'll see that each file corresponds to an LLVM version, an XCode version, and an Apple clang version; you want the **Release** file that corresponds to the Apple clang version YYYY from step a. 
+2. Go to https://mac.r-project.org/openmp and look in the table under **OpenMP run-time downloads** for the right file. Under the **Build** header, you'll see that each file corresponds to an LLVM version, an XCode version, and an Apple clang version; you want the **Release** file that corresponds to the Apple clang version YYYY from step a. 
 
-> c. Type `curl -O https://mac.r-project.org/openmp/openmp-9.0.1-darwin17-Release.tar.gz` in the Terminal, substituting the file name you need, to download OpenMP.
+3. Type `curl -O https://mac.r-project.org/openmp/openmp-9.0.1-darwin17-Release.tar.gz` in the Terminal, substituting the file name you need, to download OpenMP.
 
-> d. Then run `sudo tar fvx openmp-9.0.1-darwin17-Release.tar.gz -C /` in the Terminal to install OpenMP. You will be asked for your password.
+4. Then run `sudo tar fvx openmp-9.0.1-darwin17-Release.tar.gz -C /` in the Terminal to install OpenMP. You will be asked for your password.
 
 ## Setup on Windows
 
