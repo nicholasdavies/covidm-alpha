@@ -2,7 +2,6 @@
 #define HELPER_H
 
 // [[Rcpp::plugins(cpp11)]]
-// [[Rcpp::depends(RcppGSL)]]
 
 #include <vector>
 #include <stdexcept>

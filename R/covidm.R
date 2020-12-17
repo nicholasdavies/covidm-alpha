@@ -9,6 +9,7 @@
 #' @docType package
 #' @name covidm
 #' @useDynLib covidm
+#' @import data.table
 #' @importFrom Rcpp sourceCpp
 NULL
 
@@ -17,7 +18,7 @@ NULL
 # main file to source for users of the covidm API.
 
 # TODO
-#  - recover better from user halting of execution of cm_fit
+#  - recover better from user halting of execution of cm_fit (Rcpp::checkUserInterrupt)
 #  - recover better from crashes during cm_fit
 # TODO
 #  - make sure seq_len and seq_along are used instead of 1:length() for 0-length things

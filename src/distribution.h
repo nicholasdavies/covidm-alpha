@@ -4,10 +4,6 @@
 #define DISTRIBUTION_H
 
 #include "randomizer.h"
-#include <gsl/gsl_rng.h>
-#include <gsl/gsl_randist.h>
-#include <gsl/gsl_sf_gamma.h>
-#include <gsl/gsl_cdf.h>
 #include <algorithm>
 #include <string>
 #include <iostream>

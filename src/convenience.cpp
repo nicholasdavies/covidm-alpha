@@ -2,16 +2,17 @@
 
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::plugins(openmp)]]
-// [[Rcpp::depends(RcppGSL)]]
+// [[Rcpp::depends(BH)]]
 
 // Helper functions
 #include "convenience.h"
 #include "parameters.h"
-#include <gsl/gsl_sf_gamma.h>
-#include <gsl/gsl_cdf.h>
+#include <boost/math/special_functions/gamma.hpp>
 #include <cmath>
 #include <iostream>
 using namespace std;
+using boost::math::lgamma;
+using boost::math::gamma_p;
 
 vector<double> seq(double x0, double x1, double by)
 {
@@ -26,10 +27,15 @@ vector<double> seq(double x0, double x1, double by)
     return vector<double>(0);
 }
 
-// binomial log density
-double binom(double x, double size, double prob)
+double gamma_P(double x, double shape, double scale)
 {
-    return -log(size + 1.) - gsl_sf_lnbeta(size - x + 1., x + 1.) + x * log(prob) + (size - x) * log(1. - prob);
+    return boost::math::gamma_p(x / scale, shape);
+}
+
+// binomial log density
+double binom(double k, double n, double p)
+{
+    return lgamma(n + 1.) - lgamma(k + 1.) - lgamma(n - k + 1.) + k * log(p) + (n - k) * log(1. - p);
 }
 
 // negative binomial log density
@@ -39,14 +45,14 @@ double nbinom(unsigned int x, double mean, double size)
     double p = size / (size + mean);
     double n = mean * p / (1 - p);
 
-    return gsl_sf_lngamma(n + k) - gsl_sf_lngamma(k + 1) - gsl_sf_lngamma(n) + n * log(p) + k * log(1 - p);
+    return lgamma(n + k) - lgamma(k + 1) - lgamma(n) + n * log(p) + k * log(1 - p);
 }
 
 // negative binomial log density with retrospective confirmation
 double nbinom_gammaconf(unsigned int x, double mean, double size, double days_ago, double conf_delay_mean, double conf_delay_shape)
 {
     double conf_delay_scale = conf_delay_mean / conf_delay_shape;
-    double prop_confirmed = gsl_cdf_gamma_P(days_ago, conf_delay_shape, conf_delay_scale);
+    double prop_confirmed = gamma_P(days_ago, conf_delay_shape, conf_delay_scale);
     return nbinom(x, mean * prop_confirmed, size);
 }
 
@@ -57,8 +63,8 @@ vector<double> delay_gamma(double mu, double shape, double t_max, double t_step,
     vector<double> height;
 
     for (double t = 0.0; t < t_max + 0.5 * t_step; t += t_step)
-        height.push_back(mult * (gsl_cdf_gamma_P(t + t_step/2, shape, scale) - 
-            gsl_cdf_gamma_P(max(0.0, t - t_step/2), shape, scale)));
+        height.push_back(mult * (gamma_P(t + t_step/2, shape, scale) - 
+            gamma_P(max(0.0, t - t_step/2), shape, scale)));
     return height;
 }
 

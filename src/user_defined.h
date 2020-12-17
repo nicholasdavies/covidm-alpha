@@ -2,7 +2,6 @@
 
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::plugins(openmp)]]
-// [[Rcpp::depends(RcppGSL)]]
 
 // Declarations of C++ functions which require definition by the user
 

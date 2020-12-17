@@ -2,7 +2,6 @@
 
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::plugins(openmp)]]
-// [[Rcpp::depends(RcppGSL)]]
 
 #include <vector>
 #include <iostream>
@@ -44,8 +43,9 @@ Reporter RunSimulation(Parameters& P, Randomizer& Rand)
     }
     else if (P.model == "household")
     {
-        Households h(P);
-        h.Run(P, Rand, rep);
+        throw std::logic_error("Unrecognized model type.");
+        //Households h(P);
+        //h.Run(P, Rand, rep);
     }
     else
     {
@@ -78,7 +78,7 @@ Rcpp::List cm_backend_simulate_v2(Rcpp::List parameters, unsigned int n_run = 1,
         // Components unique to each run
         vector<Randomizer> rand_r;
         for (unsigned int r = 0; r < n_run; ++r)
-            rand_r.emplace_back(gsl_rng_get(rand_master.GSL_RNG()));
+            rand_r.emplace_back(rand_master());
 
         // Run the simulation
         #pragma omp parallel for if(n_threads > 1) schedule(dynamic)
@@ -100,7 +100,7 @@ Rcpp::List cm_backend_simulate_v2(Rcpp::List parameters, unsigned int n_run = 1,
         vector<Randomizer> rand_r;
         vector<Reporter> rep_r(n_run, Reporter(covidm_parameters));
         for (unsigned int r = 0; r < n_run; ++r)
-            rand_r.emplace_back(gsl_rng_get(rand_master.GSL_RNG()));
+            rand_r.emplace_back(rand_master());
 
         // Run the simulation
         #pragma omp parallel for if(n_threads > 1) schedule(dynamic)

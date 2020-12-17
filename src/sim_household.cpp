@@ -1,8 +1,8 @@
 // sim_household.cpp
-
-// [[Rcpp::plugins(cpp11)]]
-// [[Rcpp::plugins(openmp)]]
-// [[Rcpp::depends(RcppGSL)]]
+/*
+/ [[Rcpp::plugins(cpp11)]]
+/ [[Rcpp::plugins(openmp)]]
+/ [[Rcpp::depends(RcppGSL)]]
 
 #include "sim_household.h"
 #include "parameters.h"
@@ -309,3 +309,4 @@ void Households::Run(Parameters& P, Randomizer& Rand, Reporter& rep)
 // X age specific mixing within a region
 // X travel to other regions
 // age specific travel to other regions
+*/

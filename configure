@@ -7,19 +7,6 @@
 CC=`${R_HOME}/bin/R CMD config CC`
 CFLAGS=`${R_HOME}/bin/R CMD config CFLAGS`
 
-## Use gsl-config to get cflags and libs
-command -v foo >/dev/null 2>&1 || GSL_ABSENT=1
-
-if [ "GSL_ABSENT" = "1" ]; then
-    echo "*** gsl-config not found; the GNU Scientific Library (GSL) needs"
-    echo "*** to be installed for covidm to work. Aborting installation."
-    exit 1
-else
-    # Use gsl-config for header and linker arguments
-    GSL_CFLAGS=`gsl-config --cflags`
-    GSL_LIBS=`gsl-config --libs`
-fi
-
 # Test if we have a OPENMP compatible compiler
 # Aside: ${SHLIB_OPENMP_CFLAGS} does not appear to be defined at this point according to Matt's testing on
 # Linux, and R CMD config SHLIB_OPENMP_CFLAGS also returns 'no information for variable'. That's not
@@ -51,7 +38,7 @@ fi
 rm -f test-omp.* a.out
 
 # Test if the compiler is Apple clang, in which case we need some different flags for OpenMP.
-clang -v 2>&1 >/dev/null | grep 'Apple clang' >/dev/null || NOT_APPLE_CLANG=1
+${CC} -v 2>&1 >/dev/null | grep 'Apple clang' >/dev/null || NOT_APPLE_CLANG=1
 
 # Write to Makevars
 if [ "$R_NO_OPENMP" = "1" ]; then
@@ -67,9 +54,6 @@ else
   echo "Apple clang detected."
   sed -e "s|@openmp_cflags@|-Xclang -fopenmp|" src/Makevars.in > src/Makevars
 fi
-
-sed -e "s|@gsl_cflags@|$GSL_CFLAGS|" src/Makevars > src/Makevars.tmp && mv src/Makevars.tmp src/Makevars
-sed -e "s|@gsl_libs@|$GSL_LIBS|" src/Makevars > src/Makevars.tmp && mv src/Makevars.tmp src/Makevars
 
 # retain user supplied PKG_ env variables.
 sed -e "s|@PKG_CXXFLAGS@|$PKG_CXXFLAGS|" src/Makevars > src/Makevars.tmp && mv src/Makevars.tmp src/Makevars
